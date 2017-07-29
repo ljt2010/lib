@@ -19,7 +19,7 @@ require_once( dirname( __DIR__ ) . "/vendor/autoload.php" );
 require_once( dirname( __DIR__ ) . "/src/CLib.php" );
 
 
-use xscn\xslib;
+use libcn\lib;
 
 
 
@@ -85,7 +85,7 @@ class CTestForIsArrayWithKeys extends PHPUnit_Framework_TestCase
 			$arrKeys	= $arrItem[ 2 ];
 
 			//	...
-			$bSuccess	= ( $bGoal === xslib\CLib::IsArrayWithKeys( $arrTestData, $arrKeys ) );
+			$bSuccess	= ( $bGoal === libcn\lib\CLib::IsArrayWithKeys( $arrTestData, $arrKeys ) );
 			$sTitle		= sprintf( "IsArrayWithKeys case NO.%d", $nNumber );
 			$nNumber ++;
 

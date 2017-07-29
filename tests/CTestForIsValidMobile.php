@@ -19,7 +19,7 @@ require_once( dirname( __DIR__ ) . "/vendor/autoload.php" );
 require_once( dirname( __DIR__ ) . "/src/CLib.php" );
 
 
-use xscn\xslib;
+use libcn\lib;
 
 
 
@@ -93,7 +93,7 @@ class CTestForIsValidMobile extends PHPUnit_Framework_TestCase
 			$bTrim		= array_key_exists( 2, $arrItem ) ? $arrItem[ 2 ] : false;
 
 			//	...
-			$bSuccess	= ( $bGoal === xslib\CLib::IsValidMobile( $vMobile, $bTrim ) );
+			$bSuccess	= ( $bGoal === libcn\lib\CLib::IsValidMobile( $vMobile, $bTrim ) );
 			$sTitle		= sprintf
 			(
 				"IsValidMobile case NO.%d - ( %s ) '%s'",

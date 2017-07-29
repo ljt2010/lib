@@ -19,7 +19,7 @@ require_once( dirname( __DIR__ ) . "/vendor/autoload.php" );
 require_once( dirname( __DIR__ ) . "/src/CLib.php" );
 
 
-use xscn\xslib;
+use libcn\lib;
 
 
 
@@ -212,19 +212,19 @@ class CTestForGetClientIP extends PHPUnit_Framework_TestCase
 			$bMustBePublic	= array_key_exists( 3, $arrItem ) ? $arrItem[ 3 ] : true;
 			$bPlayWithProxy	= array_key_exists( 4, $arrItem ) ? $arrItem[ 4 ] : true;
 
-			if ( xslib\CLib::IsSameString( 'HTTP_X_FORWARDED_FOR', $sServerKey ) )
+			if ( libcn\lib\CLib::IsSameString( 'HTTP_X_FORWARDED_FOR', $sServerKey ) )
 			{
 				$_SERVER = [ $sServerKey => sprintf( "%s, 110.110.110.110", ( is_string( $vIp ) ? $vIp : '' ) ) ];
 			}
-			else if ( xslib\CLib::IsSameString( 'REMOTE_ADDR', $sServerKey ) )
+			else if ( libcn\lib\CLib::IsSameString( 'REMOTE_ADDR', $sServerKey ) )
 			{
 				$_SERVER = [ $sServerKey => ( is_string( $vIp ) ? $vIp : '' ) ];
 			}
 
 			//	...
-			$sGotIp		= xslib\CLib::GetClientIP( $bMustBePublic, $bPlayWithProxy );
-			$bSuccess	= ( $bGoal === xslib\CLib::IsValidIP( $sGotIp, $bMustBePublic ) );
-			$sValue		= xslib\CLib::IsArrayWithKeys( $_SERVER, $sServerKey ) ? $_SERVER[ $sServerKey ] : '';
+			$sGotIp		= libcn\lib\CLib::GetClientIP( $bMustBePublic, $bPlayWithProxy );
+			$bSuccess	= ( $bGoal === libcn\lib\CLib::IsValidIP( $sGotIp, $bMustBePublic ) );
+			$sValue		= libcn\lib\CLib::IsArrayWithKeys( $_SERVER, $sServerKey ) ? $_SERVER[ $sServerKey ] : '';
 			$sTitle		= sprintf
 			(
 				"GetClientIP( %s, %s ) case NO.%d\r\n  - key:\t%s\r\n  - input:\t%s\r\n  - goal:\t%s\r\n  - return:\t%s",
@@ -233,9 +233,9 @@ class CTestForGetClientIP extends PHPUnit_Framework_TestCase
 				$nNumber,
 
 				$sServerKey,
-				xslib\CLib::IsExistingString( $sValue ) ? $sValue : 'NULL',
+                libcn\lib\CLib::IsExistingString( $sValue ) ? $sValue : 'NULL',
 				$bGoal ? "true " : "false",
-				( xslib\CLib::IsExistingString( $sGotIp ) ? $sGotIp : "<Empty>" )
+				( libcn\lib\CLib::IsExistingString( $sGotIp ) ? $sGotIp : "<Empty>" )
 			);
 			$nNumber ++;
 

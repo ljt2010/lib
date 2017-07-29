@@ -20,7 +20,7 @@ require_once( dirname( __DIR__ ) . "/src/CLib.php" );
 require_once( dirname( __DIR__ ) . "/src/CEnv.php" );
 
 
-use xscn\xslib\CEnv;
+use libcn\lib\CEnv;
 
 
 
