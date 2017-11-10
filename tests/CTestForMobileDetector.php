@@ -20,7 +20,7 @@ require_once( dirname( __DIR__ ) . "/src/CLib.php" );
 require_once( dirname( __DIR__ ) . "/src/CMobileDetector.php" );
 
 
-use xscn\xslib\CMobileDetector;
+use libcn\lib\CMobileDetector;
 
 
 
@@ -53,7 +53,7 @@ class CTestForMobileDetector extends PHPUnit_Framework_TestCase
 		$cMd	= CMobileDetector::GetInstance();
 
 		//	...
-		$this->_OutputResult( __FUNCTION__, 'CLib::IsMobileDevice', \xscn\xslib\CLib::IsMobileDevice() ? 0 : -1, true );
+		$this->_OutputResult( __FUNCTION__, 'CLib::IsMobileDevice', \libcn\lib\CLib::IsMobileDevice() ? 0 : -1, true );
 		$this->_OutputResult( __FUNCTION__, 'isMobile', $cMd->isMobile() ? 0 : -1, true );
 		$this->_OutputResult( __FUNCTION__, 'isTablet', $cMd->isTablet() ? 0 : -1, true );
 	}

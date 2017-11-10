@@ -19,7 +19,7 @@ require_once( dirname( __DIR__ ) . "/vendor/autoload.php" );
 require_once( dirname( __DIR__ ) . "/src/CLib.php" );
 
 
-use xscn\xslib;
+use libcn\lib;
 
 
 
@@ -87,7 +87,7 @@ class CTestForIsValidMail extends PHPUnit_Framework_TestCase
 			$bTrim		= array_key_exists( 3, $arrItem ) ? $arrItem[ 3 ] : false;
 
 			//	...
-			$bSuccess	= ( $bGoal === xslib\CLib::IsValidEMail( $vEMail, $bCheckDNS, $bTrim ) );
+			$bSuccess	= ( $bGoal === libcn\lib\CLib::IsValidEmail( $vEMail, $bCheckDNS ) );
 			$sTitle		= sprintf
 			(
 				"IsValidEMail case NO.%d - ( %s ) '%s'",

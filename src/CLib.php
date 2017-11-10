@@ -289,74 +289,7 @@ class CLib
 			) );
 	}
 
-	static function IsValidEMail( $sStr, $bCheckDNS = false, $bTrim = false )
-	{
-		//
-		//	sStr		- email address / the variable being evaluated
-		//	bCheckDNS	- if we also check the DNS server
-		//	bTrim		- if we trim sStr before checking
-		//	RETURN		- true / false
-		//
-		//	<Documentation>
-		//
-		//	local-part@domain.xx.xx
-		//		- local-part	must be no more than 64 characters long
-		//		- domain	must be no more than 64 characters long
-		//
-		//	https://en.wikipedia.org/wiki/Email_address
-		//
-		//		The format of email addresses is local-part@domain where the local-part may be up to
-		// 		64 characters long and the domain name may have a maximum of 255 characters.
-		// 		- but the maximum of 256-character length of a forward or reverse path restricts
-		// 		  the entire email address to be no more than 254 characters long.
-		//		  The formal definitions are in RFC 5322 (sections 3.2.3 and 3.4.1) and RFC 5321
-		//		– with a more readable form given in the informational RFC 3696 and the associated errata
-		//
-		if ( ! self::IsExistingString( $sStr ) )
-		{
-			return false;
-		}
-		if ( ! is_bool( $bCheckDNS ) || ! is_bool( $bTrim ) )
-		{
-			return false;
-		}
 
-		//	...
-		$bRet	= false;
-		$sStr	= ( $bTrim ? trim( $sStr ) : $sStr );
-
-		if ( false !== filter_var( $sStr, FILTER_VALIDATE_EMAIL ) )
-		{
-			if ( $bCheckDNS )
-			{
-				//
-				//	continue to check DNS
-				//
-				$arrMailParts = explode( '@', $sStr, 2 );
-				if ( self::IsArrayWithKeys( $arrMailParts ) )
-				{
-					$sDomain = trim( end( $arrMailParts ) );
-					if ( self::IsExistingString( $sDomain ) )
-					{
-						//
-						//	Note:
-						//	Adding the dot enforces the root.
-						//	The dot is sometimes necessary if you are searching for a fully qualified domain
-						//	which has the same name as a host on your local domain.
-						//	Of course the dot does not alter results that were OK anyway.
-						//
-						$bRet = checkdnsrr( sprintf( "%s.", $sDomain ), 'MX' );
-					}
-				}
-			}
-			else
-			{
-				$bRet = true;
-			}
-		}
-
-		return $bRet;
-	}
 
 	static function IsValidMobile( $sStr, $bTrim = false )
 	{
@@ -504,4 +437,41 @@ class CLib
 
 		return $sRet;
 	}
+
+
+
+
+	 static function IsValidEmail( $sEmailString, $bCheckDNS=false )
+     {
+         $bRet = false;
+         if(!is_bool($bCheckDNS)){
+             return false;
+         }
+         if(is_string($sEmailString)&&3<=strlen(trim($sEmailString))){
+             if( filter_var($sEmailString,FILTER_VALIDATE_EMAIL) ){
+                 $bRet = $bCheckDNS?checkdnsrr(array_pop(explode("@",$sEmailString)),"MX"):true;
+             }
+         }
+         return $bRet;
+     }
+
+
+     static function IsValidUrl( $sUrlString, $bCheckDNS=false )
+     {
+	    $bRet = false;
+         if(!is_bool($bCheckDNS)){
+             return false;
+         }
+         if(is_string($sUrlString)&&3<=strlen(trim($sUrlString))){
+             if( filter_var($sUrlString,FILTER_VALIDATE_URL) ){
+                 $aTmp = parse_url( $sUrlString );
+                 if( array_key_exists('host',$aTmp) ){
+                     $bRet = $bCheckDNS?checkdnsrr($aTmp['host'],"A"):true;
+                 }
+             }
+         }
+         return $bRet;
+     }
+
+
 }

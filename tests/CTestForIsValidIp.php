@@ -19,7 +19,7 @@ require_once( dirname( __DIR__ ) . "/vendor/autoload.php" );
 require_once( dirname( __DIR__ ) . "/src/CLib.php" );
 
 
-use xscn\xslib;
+use libcn\lib;
 
 
 
@@ -113,7 +113,7 @@ class CTestForIsValidIp extends PHPUnit_Framework_TestCase
 			$bMustBePublic	= array_key_exists( 2, $arrItem ) ? $arrItem[ 2 ] : true;
 
 			//	...
-			$bSuccess	= ( $bGoal === xslib\CLib::IsValidIP( $vIp, $bMustBePublic ) );
+			$bSuccess	= ( $bGoal === libcn\lib\CLib::IsValidIP( $vIp, $bMustBePublic ) );
 			$sTitle		= sprintf
 			(
 				"IsValidIp case NO.%d - ( %s ) %s",
