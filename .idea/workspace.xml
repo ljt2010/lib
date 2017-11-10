@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f901b800-98fb-4f6a-88d2-7b36ffda04ab" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/CTestForIsValidUrl.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CLib.php" afterPath="$PROJECT_DIR$/src/CLib.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/CTestForEnv.php" afterPath="$PROJECT_DIR$/tests/CTestForEnv.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/CTestForGenerateRandomString.php" afterPath="$PROJECT_DIR$/tests/CTestForGenerateRandomString.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/CTestForGetClientIp.php" afterPath="$PROJECT_DIR$/tests/CTestForGetClientIp.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/CTestForGetVar.php" afterPath="$PROJECT_DIR$/tests/CTestForGetVar.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/CTestForIsArrayWithKeys.php" afterPath="$PROJECT_DIR$/tests/CTestForIsArrayWithKeys.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/CTestForIsValidIp.php" afterPath="$PROJECT_DIR$/tests/CTestForIsValidIp.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/CTestForIsValidMail.php" afterPath="$PROJECT_DIR$/tests/CTestForIsValidMail.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/CTestForIsValidMobile.php" afterPath="$PROJECT_DIR$/tests/CTestForIsValidMobile.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/CTestForMobileDetector.php" afterPath="$PROJECT_DIR$/tests/CTestForMobileDetector.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/CTestForSafeStringValAndSafeIntVal.php" afterPath="$PROJECT_DIR$/tests/CTestForSafeStringValAndSafeIntVal.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -86,21 +74,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CTestForGenerateRandomString.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CTestForGenerateRandomString.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/CTestForGenerateRandomString.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="717">
-              <caret line="69" column="5" lean-forward="true" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
+            <state relative-caret-position="342">
+              <caret line="54" column="19" lean-forward="true" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CTestForGetVar.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/CTestForGetVar.php">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1694">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="5" lean-forward="true" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -163,6 +151,7 @@
         <option value="$PROJECT_DIR$/tests/CTestForIsValidUrl.php" />
         <option value="$PROJECT_DIR$/tests/CTestForMobileDetector.php" />
         <option value="$PROJECT_DIR$/tests/CTestForSafeStringValAndSafeIntVal.php" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -307,6 +296,9 @@
       </profile-state>
     </entry>
   </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -354,7 +346,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Laravel54" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
@@ -388,7 +380,7 @@
       <workItem from="1501328124892" duration="4000" />
       <workItem from="1509602376136" duration="3487000" />
       <workItem from="1509954700718" duration="803000" />
-      <workItem from="1510299394839" duration="4740000" />
+      <workItem from="1510299394839" duration="5216000" />
     </task>
     <task id="LOCAL-00001" summary="change author's email">
       <created>1509954810215</created>
@@ -401,7 +393,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9491000" />
+    <option name="totallyTimeSpent" value="9967000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-309" width="1936" height="1056" extended-state="6" />
@@ -722,8 +714,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/CTestForGenerateRandomString.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="717">
-          <caret line="69" column="5" lean-forward="true" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
+        <state relative-caret-position="342">
+          <caret line="54" column="19" lean-forward="true" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="5" lean-forward="true" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
           <folding />
         </state>
       </provider>
