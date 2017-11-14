@@ -35,8 +35,11 @@ class CRequest
 
     private function __construct($sUrl)
     {
-        $this->sUrl = $sUrl;
-        return $this;
+        if( is_string($sUrl) ){
+            $this->sUrl = $sUrl;
+            return $this;
+        }
+        return false;
     }
 
 
@@ -128,7 +131,6 @@ class CRequest
            $this->mixParameters =  $aParameters;
             return $this;
         }
-        return false;
     }
 
 
@@ -251,7 +253,7 @@ class CRequest
             echo '证书信息设置错误！';
             exit;
         }
-        var_dump($this->mixParameters);
+
         //设置超时信息
         curl_setopt($ch, CURLOPT_TIMEOUT, $this->nTimeOut);
         //设置请求方法
