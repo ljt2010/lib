@@ -19,22 +19,23 @@ require_once( dirname( __DIR__ ) . "/vendor/autoload.php" );
 
 
 use libcn\lib;
-
+use PHPUnit\Framework\TestCase;
 
 /**
  *	class
  */
-class CTestForIsValidUrl extends PHPUnit_Framework_TestCase
+class CTestForIsValidUrl extends TestCase
 {
 	/**
 	 * @runInSeparateProcess
 	 */
 	public function testHeader()
 	{
-		print( "\r\n" . __CLASS__ . "::" . __FUNCTION__ . "\r\n" );
-		print( "--------------------------------------------------------------------------------\r\n" );
-
-		return new self();
+	    print "\r";
+        print( "*********************************************************************************\r\n" );
+		print( "*****************************  " . __CLASS__ . "  ******************************\r\n" );
+		print( "*********************************************************************************\r\n" );
+		$this->assertTrue(true);
 	}
 
 	/**
@@ -42,6 +43,7 @@ class CTestForIsValidUrl extends PHPUnit_Framework_TestCase
 	 */
 	public function testForIsValidUrl()
 	{
+        print "\r";
 		$nNumber	= 1;
 		$arrTestData	=
 			[
@@ -54,10 +56,12 @@ class CTestForIsValidUrl extends PHPUnit_Framework_TestCase
                 [ false,  'www.baidu.com' ],
                 [ false,  '://www.baidu.com' ],
                 [ false,  'https:/www.baidu.com' ],
+                [ false,  'http://www.baidussssss.com',true ],
                 [ true,  'ftp://www.baidu.com' ],
                 [ true,  'http://www.baidu.com' ],
                 [ true,  'https://www.baidu.com' ],
                 [ true,  'https://www.baidu.com/test' ],
+                [ true,  'https://www.baidu.com/test.html' ],
                 [ true,  'https://www.baidu.com/test?1=2' ],
 			];
 
@@ -77,7 +81,7 @@ class CTestForIsValidUrl extends PHPUnit_Framework_TestCase
 			);
 			$nNumber ++;
 
-			$this->_OutputResult( __FUNCTION__, $sTitle, -1, $bSuccess );
+			$this->_OutputResult( __FUNCTION__, $sTitle, null, $bSuccess );
 		}
 	}
 
@@ -92,9 +96,6 @@ class CTestForIsValidUrl extends PHPUnit_Framework_TestCase
 }
 
 
-$test = new CTestForIsValidUrl();
-
-$test->testHeader()->testForIsValidUrl();
 
 
 ?>
