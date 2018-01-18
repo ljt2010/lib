@@ -1,36 +1,29 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huizhi
- * Date: 2017/11/13
- * Time: 10:58
- */
-
-namespace libcn\lib;
+namespace libcn\lib\src;
 
 
-use function Couchbase\defaultEncoder;
 
 class CRequest
 {
     public static $oInstance = null;
 
-    protected $sMethod = 'GET';
-    protected $mixParameters = [];
-    protected $sUrl = '';
-    protected $body = null;
-    protected $response = null;
-    protected $nResponseStatus = null;
-    protected $nTimeOut = 5;
-    protected $sContentType = 'application/x-www.form-urlencoded';
-    protected $rCurlHandle = null;
-    protected $sCAInfo = '';
-    protected $aCookie = [];
-    protected $aHeader = [];
-    protected $sChartSet = 'utf-8';
-    protected $HasFile = false;
-    protected $WithCookie = false;
-    protected $GetHeader = false;
+    public $sMethod = 'GET';
+    public $mixParameters = [];
+    public $urlParameters = [];
+    public $sUrl = '';
+    public $body = null;
+    public $response = null;
+    public $nResponseStatus = null;
+    public $nTimeOut = 5;
+    public $sContentType = 'application/x-www-form-urlencoded';
+    public $rCurlHandle = null;
+    public $sCAInfo = '';
+    public $aCookie = [];
+    public $aHeader = [];
+    public $sChartSet = 'utf-8';
+    public $HasFile = false;
+    public $WithCookie = false;
+    public $GetHeader = false;
 
 
     private function __construct($sUrl)
@@ -125,11 +118,27 @@ class CRequest
             foreach ($aParameters as $sParameterName => $sParameterValue) {
                 $this->setParameter($sParameterName, $sParameterValue);
             }
-            $this->WithCookie = true;
             return $this;
         } else {
-           $this->mixParameters =  $aParameters;
+            return false;
+        }
+    }
+
+    public function setUrlParameter($sParameterName, $sParameterValue)
+    {
+        $this->urlParameters[$sParameterName] = $sParameterValue;
+        return $this;
+    }
+
+    public function setUrlParameters($aParameters)
+    {
+        if (is_array($aParameters) ) {
+            foreach ($aParameters as $sParameterName => $sParameterValue) {
+                $this->setUrlParameter($sParameterName, $sParameterValue);
+            }
             return $this;
+        } else {
+            return false;
         }
     }
 
@@ -211,30 +220,19 @@ class CRequest
 
     public function requestReady()
     {
-        if(false!==strpos($this->sContentType,'multipart/form-data')){
-            $sParameters = $this->mixParameters;
-        } else{
-            if( is_string( $this->mixParameters ) ){
-                $sParameters = $this->mixParameters;
-            } else{
-                $sParameters = http_build_query($this->mixParameters, '', '&', PHP_QUERY_RFC3986);
-            }
-        }
+        //设置链接后的参数
+        $sUrlParameters = $this->_getUrlParameterString();
+        //设置body的参数
+        $sParameters = $this->_getBodyParameterString();
 
         //初始化
         $ch = curl_init();
         //设置请求地址
-        if ('GET' === $this->sMethod) {
-            curl_setopt($ch, CURLOPT_URL, $this->LinkUrlAndParameter($this->sUrl, $sParameters));
-        } else {
-            curl_setopt($ch, CURLOPT_URL, $this->sUrl);
-        }
-
+        curl_setopt($ch, CURLOPT_URL, $this->LinkUrlAndParameter($this->sUrl, $sUrlParameters));
         if ($this->HasFile && 'POST' != $this->sMethod) {
             echo "上传文件方法必须为POST";
             exit;
         }
-
         //根据scheme设置证书信息
         if (false == strpos($this->sUrl, 'https') && '' == $this->sCAInfo) {
             //禁用后cURL将终止从服务端进行验证
@@ -246,24 +244,25 @@ class CRequest
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
             //生产环境  CURLOPT_SSL_VERIFYHOST 设置为 2
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-
             curl_setopt($ch, CURLOPT_CAINFO, $this->sCAInfo);
         } else {
             //证书信息设置错误或者证书不存在，返回false
             echo '证书信息设置错误！';
             exit;
         }
-
         //设置超时信息
         curl_setopt($ch, CURLOPT_TIMEOUT, $this->nTimeOut);
         //设置请求方法
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->sMethod);
         //设置传参
-        if (in_array($this->sMethod, ['POST', 'PUT'])) {
+        if (in_array($this->sMethod, ['POST', 'PUT','DELETE','OPTIONS'])) {
             curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $sParameters);
+            if( null!==$this->body ){
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $this->body);
+            } else{
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $sParameters);
+            }
             $this->_setHeader('CONTENT-TYPE', $this->sContentType );
-            //$this->_setHeader('Content-Length', strlen($sParameters));
         }
         //设置COOKIE信息
         if ($this->WithCookie) {
@@ -303,6 +302,35 @@ class CRequest
         return false;
     }
 
+
+    private function _getUrlParameterString()
+    {
+        $sUrlParameters = http_build_query($this->urlParameters, '', '&', PHP_QUERY_RFC3986);
+        if( 'GET' === $this->sMethod ){
+            if( is_array( $this->mixParameters ) ){
+                $sUrlParameters = http_build_query(
+                    array_merge( $this->mixParameters,$this->urlParameters ),
+                    '', '&', PHP_QUERY_RFC3986);
+            }
+        }
+        return $sUrlParameters;
+    }
+
+
+    private function _getBodyParameterString()
+    {
+        if(false!==strpos($this->sContentType,'multipart/form-data')){
+            //传递数组
+            $BodyParameters = $this->mixParameters;
+        } else{
+            if( is_string( $this->mixParameters ) ){
+                $BodyParameters = $this->mixParameters;
+            } else{
+                $BodyParameters = http_build_query($this->mixParameters, '', '&', PHP_QUERY_RFC3986);
+            }
+        }
+        return $BodyParameters;
+    }
 
     protected function LinkUrlAndParameter($sUrl, $sParameters)
     {
@@ -357,4 +385,8 @@ class CRequest
         return $aRet;
     }
 
+
+
 }
+
+
