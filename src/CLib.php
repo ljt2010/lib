@@ -419,4 +419,83 @@ class CLib
     }
 
 
+    static function IsInt( $numeric, $bPositive = false )
+    {
+        if( is_numeric( $numeric ) && floor( $numeric ) == $numeric
+            && ($bPositive ? 0 < $numeric : true) ){
+            return true;
+        }
+        return  false;
+    }
+
+
+
+    static public function GetRand( $length = 4, $type = "letter", $prefix = "" )
+    {
+        $sRet = "";
+        if( !is_numeric( $length ) || 0 >= $length || floor( $length ) != $length ){
+            return false;
+        }
+        if( !in_array($type,["letter",'numeric','mix']) ){
+            return false;
+        }
+        $type = strtolower($type);
+        if( !is_string( $prefix ) ) {
+            return false;
+        }
+        $randLib = [];
+        switch ( $type )
+        {
+            case 'letter':
+                $randLib =
+                    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                break;
+            case 'numeric':
+                $randLib = '012345689';
+                break;
+            case 'mix':
+                $randLib =
+                    '012345689abcdefghijklmnopqrstuvwxyz012345689ABCDEFGHIJKLMNOPQRSTUVWXYZ012345689';
+                break;
+        }
+
+        $max = strlen( $randLib ) - 1;
+        for( $i = 0; $i < $length; $i++ )
+        {
+            $sRet .= $randLib[rand( 0,$max )];
+        }
+
+        return $sRet;
+    }
+
+
+    static function getInput( $parameterName = "", $default = null )
+    {
+        if( '' == $parameterName ){
+            return array_merge($_GET,$_POST);
+        }else if( is_string( $parameterName ) ){
+            return isset( $_POST[$parameterName] )? $_POST[$parameterName]:
+                isset( $_GET[$parameterName] ) ?  $_GET[$parameterName] :
+                    isset( $_REQUEST[$parameterName] )?  $_REQUEST[$parameterName] : $default;
+        }
+        else if(is_array( $parameterName ))
+        {
+            $aRet = [];
+            $input = array_merge($_GET,$_POST,$_REQUEST);
+            foreach ( $parameterName as $keyName )
+            {
+                if( array_key_exists( $keyName, $input ) )
+                {
+                    $aRet[$keyName] = $input[$keyName];
+                }
+            }
+            return $aRet;
+        }
+        else
+        {
+            return $default;
+        }
+    }
+
+
 }

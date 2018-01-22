@@ -21,10 +21,10 @@ return [
     'transfer_transaction'=>["/$version/transfer",'post'],
     'create_consignment_order'=>["/$version/orders",'post'],
     'cancel_consignment_order'=>["/$version/orders",'delete'],
-    'query_consignment_order'=>["/$version/orders",'get'],
-    'exchange'=>["/$version/exchange",'post'],
-    'query_consignment_assets_price'=>["/$version/assets_bids",'post'],
-    'query_transactions_record'=>["/$version/transactions",'get'],
+    'query_consignment_order'=>["/$version/orders",'get'],/**/
+    'exchange'=>["/$version/exchange",'post'],/**/
+    'query_consignment_assets_price'=>["/$version/assets_bids",'post'],/**/
+    'query_transactions_record'=>["/$version/transactions",'get'],/**/
 
     'issue_assets'=>["/$version/issue",'post'],
     'release_assets'=>["/$version/initiative",'post'],
