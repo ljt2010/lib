@@ -9,7 +9,6 @@
 namespace libcn\lib;
 
 
-use function PHPSTORM_META\type;
 
 class Input
 {
@@ -17,6 +16,7 @@ class Input
     static public $post = [];
     static public $file = [];
     static public $cookie = [];
+    static public $server = [];
 
     public function __construct()
     {
@@ -24,6 +24,7 @@ class Input
         $this->post = $_POST;
         $this->file = $_FILES;
         $this->cookie = $_COOKIE;
+        $this->server = $_SERVER;
     }
 
     public static function get( $sKeyName, $defaultValue = null, $aCheck = [], &$checkResult = "" )
@@ -39,6 +40,8 @@ class Input
                 $value = $defaultValue;
                 $bUseDefault = true;
             }
+        } elseif (is_null($sKeyName)){
+            return array_merge( self::$get, self::$post );
         }
 
         if( !$bUseDefault || 0 < $aCheck ){
@@ -51,9 +54,27 @@ class Input
 
     public static function typeCheck( $value, $checkParameter )
     {
-        if( self::getType( $value ) ){
-
+        $bType = false;
+        $bLength = false;
+        if( array_key_exists( 'type',$checkParameter ) && !$checkParameter['type'] == self::getType( $value ) ){
+            $bType = false;
         }
+
+        if( array_key_exists( 'len',$checkParameter ) ){
+            $checkParameter['len'] = str_replace(['|','-','~'],':',$checkParameter['len']);
+            list(  $minLength, $maxLength ) = explode(':', $checkParameter['len']);
+            if( is_string( $value ) && $minLength<=strlen( $value ) && $maxLength <= strlen( $value )){
+                $bLength = true;
+            }else if ( is_array($value) && $minLength>count( $value )|| $maxLength> count( $value ) ){
+                $bLength = true;
+            }
+        }else{
+            $bLength = true;
+        }
+
+
+
+        return $bType && $bLength;
     }
 
 
@@ -80,6 +101,6 @@ class Input
         if( is_object( $value ) ){
             return 'object';
         }
-        return "unknown type";
+        return false;
     }
 }

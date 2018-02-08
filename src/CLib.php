@@ -498,4 +498,26 @@ class CLib
     }
 
 
+    static function write( $sString, $sPath = "./file.log" )
+    {
+        if( self::IsExistingString( $sString ) && self::IsExistingString( $sPath ) ){
+            $sDir = substr( $sPath, 0, strrpos( $sPath, "/" ) );
+            if (!is_dir( $sDir ) ){
+                mkdir( $sDir,666, true );
+            }
+
+            if( !file_exists( $sPath ) ){
+                touch( $sPath );
+                chmod( $sPath, 666 );
+            }
+
+            if( file_exists( $sPath ) && is_writable( $sPath ) ){
+                $handle = fopen( $sPath, "a+");
+                if( $handle ){
+                    fwrite( $handle, $sString );
+                    fclose($handle );
+                }
+            }
+        }
+    }
 }
